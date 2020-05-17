@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "files")
@@ -11,14 +8,19 @@ public class File {
     @Id
     @GeneratedValue
     private int id;
-    private String path;
     private String name;
 
-    public File(){}
+    @Lob
+    @Column(name = "data", columnDefinition = "BLOB")
+    private byte[] data;
+    private double size;
 
-    public File(String path, String name) {
-        this.path = path;
+    public File() {}
+
+    public File(String name,byte[] data){
         this.name = name;
+        this.data = data;
+        this.size = data.length/1000;
     }
 
     public int getId() {
@@ -29,19 +31,27 @@ public class File {
         this.id = id;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
     }
 }

@@ -34,6 +34,9 @@ public class FileService {
     }
 
     @Transactional
+    public List<File> getAll(){return FileRepository.findAll();}
+
+    @Transactional
     public long count() {
         return FileRepository.count();
     }

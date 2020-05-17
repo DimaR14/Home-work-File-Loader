@@ -15,36 +15,47 @@
         <div class="container-fluid">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul id="groupList" class="nav navbar-nav">
-                    <li><button type="button" id="add_contact" class="btn btn-default navbar-btn">Add File</button></li>
-                    <li><button type="button" id="add_group" class="btn btn-default navbar-btn">Delete File</button></li>
+                <ul id="fileList" class="nav navbar-nav">
+                    <li><button type="button" id="add_file" class="btn btn-default navbar-btn">Add File</button></li>
+                    <li><button type="button" id="delete_file" class="btn btn-default navbar-btn">Delete File</button></li>
                 </ul>
             </div>
 
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <td></td>
                     <td><b>Name</b></td>
+                    <td><b>Size</b></td>
                 </tr>
                 </thead>
                 <c:forEach items="${files}" var="file">
                     <tr>
                         <td>${file.name}</td>
+                        <td>${file.size}</td>
                     </tr>
                 </c:forEach>
 
             </table>
 
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <c:if test="${allPages ne null}">
+                        <c:forEach var="i" begin="1" end="${allPages}">
+                            <li><a href="/?page=<c:out value="${i - 1}"/>"><c:out value="${i}"/></a></li>
+                        </c:forEach>
+                    </c:if>
+                </ul>
+            </nav>
+
 
             <script>
                 $('.dropdown-toggle').dropdown();
 
-                $('#add_contact').click(function(){
+                $('#add_file').click(function(){
                     window.location.href='/file_add_page';
                 });
 
-                $('#add_group').click(function(){
+                $('#delete_file').click(function(){
                     window.location.href='/file_delete_page';
                 });
 
